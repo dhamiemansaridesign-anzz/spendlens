@@ -1,0 +1,61 @@
+:root {
+  /* ── Brand ─────────────────────────────────── */
+  --color-primary:          #0052ff;
+  --color-primary-active:   #003ecc;
+  --color-primary-disabled: #a8b8cc;
+
+  /* ── Surfaces ──────────────────────────────── */
+  --color-canvas:                #ffffff;
+  --color-surface-soft:          #f7f7f7;
+  --color-surface-strong:        #eef0f3;
+  --color-surface-dark:          #0a0b0d;
+  --color-surface-dark-elevated: #16181c;
+
+  /* ── Text ───────────────────────────────────── */
+  --color-ink:          #0a0b0d;
+  --color-body:         #5b616e;
+  --color-muted:        #7c828a;
+  --color-muted-soft:   #a8acb3;
+  --color-on-dark:      #ffffff;
+  --color-on-dark-soft: #a8acb3;
+
+  /* ── Hairlines ──────────────────────────────── */
+  --color-hairline:      #dee1e6;
+  --color-hairline-soft: #eef0f3;
+
+  /* ── Semantic ───────────────────────────────── */
+  --color-semantic-up:      #05b169;
+  --color-semantic-down:    #cf202f;
+  --color-accent-yellow:    #f4b000;
+
+  /* ── Typography ─────────────────────────────── */
+  --font-sans: 'Inter', -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ── Border Radius ──────────────────────────── */
+  --radius-none: 0px;
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-pill: 100px;
+  --radius-full: 9999px;
+
+  /* ── Spacing ─────────────────────────────────── */
+  --space-xxs:  4px;
+  --space-xs:   8px;
+  --space-sm:   12px;
+  --space-base: 16px;
+  --space-md:   20px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-xxl:  48px;
+
+  /* ── Elevation ───────────────────────────────── */
+  --shadow-card:     0 1px 2px rgba(10, 11, 13, 0.04);
+  --shadow-elevated: 0 4px 12px rgba(10, 11, 13, 0.08);
+
+  /* ── Layout ──────────────────────────────────── */
+  --nav-height: 64px;
+}
