@@ -7,6 +7,7 @@ import MarketsScreen from './screens/MarketsScreen'
 import HistoryScreen from './screens/HistoryScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import BottomNav from './components/BottomNav'
+import InstallPrompt from './components/InstallPrompt'
 
 function AppShell() {
   const { user, authLoading } = useApp()
@@ -32,6 +33,7 @@ function AppShell() {
         {activeTab === 'settings' && <SettingsScreen />}
       </main>
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      <InstallPrompt />
     </div>
   )
 }
