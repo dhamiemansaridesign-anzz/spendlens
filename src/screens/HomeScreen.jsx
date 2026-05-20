@@ -1,5 +1,6 @@
 import React from 'react'
 import { useApp } from '../context/AppContext'
+import { useTheme } from '../context/ThemeContext'
 import QuickAdd from '../components/QuickAdd'
 import PullToRefresh from '../components/PullToRefresh'
 
@@ -58,6 +59,7 @@ function formatTime(iso) {
 
 export default function HomeScreen({ onViewHistory }) {
   const { user, expenses, removeExpense, refreshExpenses } = useApp()
+  const { isDark, toggleTheme } = useTheme()
   const firstName = user?.name?.split(' ')[0] || 'there'
   const recent = expenses.slice(0, 10)
   const groups = groupByDate(recent)
@@ -72,22 +74,45 @@ export default function HomeScreen({ onViewHistory }) {
           <p className="text-sm text-muted">{greeting()},</p>
           <h2 className="text-xl font-semibold text-ink">{firstName}</h2>
         </div>
-        {user?.picture && (
-          <img src={user.picture} alt="avatar" className="w-9 h-9 rounded-full object-cover" />
-        )}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="w-9 h-9 rounded-full bg-canvas-softer flex items-center justify-center transition-colors"
+            aria-label="Toggle dark mode"
+          >
+            {isDark ? (
+              /* Sun — switch to light */
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-ink">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            ) : (
+              /* Moon — switch to dark */
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-ink">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+              </svg>
+            )}
+          </button>
+          {user?.picture && (
+            <img src={user.picture} alt="avatar" className="w-9 h-9 rounded-full object-cover" />
+          )}
+        </div>
       </div>
 
       {/* Metric cards */}
       <div className="grid grid-cols-2 gap-3">
-        <div style={{ backgroundColor: '#ffffff', border: '1px solid #dee1e6', borderRadius: 24, padding: 16, boxShadow: '0 1px 2px rgba(10,11,13,0.04)' }}>
-          <p style={{ fontSize: 10, fontWeight: 600, color: '#7c828a', textTransform: 'uppercase', letterSpacing: '0.08em', margin: 0 }}>Today</p>
-          <p style={{ fontSize: 24, fontWeight: 600, color: '#0a0b0d', marginTop: 4, fontFamily: "'JetBrains Mono', monospace", fontVariantNumeric: 'tabular-nums' }}>
+        <div style={{ backgroundColor: 'var(--color-canvas)', border: '1px solid var(--color-hairline)', borderRadius: 24, padding: 16, boxShadow: 'var(--shadow-card)', transition: 'background-color 0.2s ease' }}>
+          <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: 0 }}>Today</p>
+          <p style={{ fontSize: 24, fontWeight: 600, color: 'var(--color-ink)', marginTop: 4, fontFamily: "'JetBrains Mono', monospace", fontVariantNumeric: 'tabular-nums' }}>
             ₹{todayTotal(expenses).toLocaleString('en-IN')}
           </p>
         </div>
-        <div style={{ backgroundColor: '#f7f7f7', borderRadius: 24, padding: 16 }}>
-          <p style={{ fontSize: 10, fontWeight: 600, color: '#7c828a', textTransform: 'uppercase', letterSpacing: '0.08em', margin: 0 }}>This month</p>
-          <p style={{ fontSize: 24, fontWeight: 600, color: '#0a0b0d', marginTop: 4, fontFamily: "'JetBrains Mono', monospace", fontVariantNumeric: 'tabular-nums' }}>
+        <div style={{ backgroundColor: 'var(--color-canvas-soft)', borderRadius: 24, padding: 16, transition: 'background-color 0.2s ease' }}>
+          <p style={{ fontSize: 10, fontWeight: 600, color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: 0 }}>This month</p>
+          <p style={{ fontSize: 24, fontWeight: 600, color: 'var(--color-ink)', marginTop: 4, fontFamily: "'JetBrains Mono', monospace", fontVariantNumeric: 'tabular-nums' }}>
             ₹{monthTotal(expenses).toLocaleString('en-IN')}
           </p>
         </div>
@@ -127,7 +152,7 @@ export default function HomeScreen({ onViewHistory }) {
                       style={{ boxShadow: 'var(--shadow-card)' }}
                     >
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+                        className="cat-icon w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
                         style={{ backgroundColor: meta.color }}
                       >
                         {emoji}

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -8,36 +9,28 @@ export default {
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
-        /* Brand */
-        primary:          '#0052ff',
-        'primary-active': '#003ecc',
+        // These don't change between themes — keep as hex so opacity modifiers work
+        primary:           '#0052ff',
+        'primary-active':  '#003ecc',
         'primary-disabled':'#a8b8cc',
+        'semantic-up':     '#05b169',
+        'semantic-down':   '#cf202f',
 
-        /* Text */
-        ink:         '#0a0b0d',
-        body:        '#5b616e',
-        muted:       '#7c828a',
-        'muted-soft':'#a8acb3',
-
-        /* Surfaces — keep old names, updated hex */
-        canvas:          '#ffffff',
-        'canvas-soft':   '#f7f7f7',   /* was #efefef */
-        'canvas-softer': '#eef0f3',   /* was #f3f3f3 */
-
-        /* Hairlines */
-        hairline:      '#dee1e6',
-        'hairline-soft':'#eef0f3',
-
-        /* Dark surfaces */
-        'surface-dark':          '#0a0b0d',
-        'surface-dark-elevated': '#16181c',
-
-        /* Semantic */
-        'semantic-up':   '#05b169',
-        'semantic-down': '#cf202f',
+        // These change with theme — use CSS variables
+        ink:           'var(--color-ink)',
+        body:          'var(--color-body)',
+        muted:         'var(--color-muted)',
+        'muted-soft':  'var(--color-muted-soft)',
+        canvas:        'var(--color-canvas)',
+        'canvas-soft': 'var(--color-canvas-soft)',
+        'canvas-softer':'var(--color-canvas-softer)',
+        hairline:      'var(--color-hairline)',
+        'hairline-soft':'var(--color-hairline-soft)',
+        'surface-dark': 'var(--color-surface-dark)',
+        'surface-dark-elevated': 'var(--color-surface-dark-elevated)',
       },
       borderRadius: {
-        card: '24px',    /* updated from 16px → xl per DESIGNCOIN */
+        card: '24px',
         pill: '100px',
         xl:   '24px',
         lg:   '16px',

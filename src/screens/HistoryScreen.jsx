@@ -135,7 +135,7 @@ export default function HistoryScreen({ onBack }) {
                               style={{ boxShadow: 'var(--shadow-card)' }}
                             >
                               <div
-                                className="w-9 h-9 rounded-xl flex items-center justify-center text-base flex-shrink-0"
+                                className="cat-icon w-9 h-9 rounded-xl flex items-center justify-center text-base flex-shrink-0"
                                 style={{ backgroundColor: meta.color }}
                               >
                                 {emoji}

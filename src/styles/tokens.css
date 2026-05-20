@@ -1,4 +1,7 @@
 :root {
+  /* ── Primary tint (chip selected bg) ───────── */
+  --color-primary-tint: #e8eeff;
+
   /* ── Brand ─────────────────────────────────── */
   --color-primary:          #0052ff;
   --color-primary-active:   #003ecc;
@@ -58,4 +61,23 @@
 
   /* ── Layout ──────────────────────────────────── */
   --nav-height: 64px;
+}
+
+/* ── Dark mode overrides ────────────────────── */
+.dark {
+  --color-canvas:                #0a0b0d;
+  --color-surface-soft:          #16181c;
+  --color-canvas-soft:           #16181c;
+  --color-canvas-softer:         #1e2028;
+  --color-surface-strong:        #1e2028;
+  --color-ink:                   #ffffff;
+  --color-body:                  #a8acb3;
+  --color-muted:                 #7c828a;
+  --color-muted-soft:            #3d4048;
+  --color-hairline:              #2a2d35;
+  --color-hairline-soft:         #1e2028;
+  --color-surface-dark-elevated: #1e2028;
+  --color-primary-tint:          rgba(0, 82, 255, 0.18);
+  --shadow-card:                 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-elevated:             0 4px 12px rgba(0, 0, 0, 0.5);
 }

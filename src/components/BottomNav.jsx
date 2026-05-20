@@ -49,7 +49,7 @@ export default function BottomNav({ activeTab, onTabChange }) {
   const effectiveTab = activeTab === 'history' ? 'home' : activeTab
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 safe-bottom z-50" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #dee1e6' }}>
+    <nav className="fixed bottom-0 left-0 right-0 safe-bottom z-50" style={{ backgroundColor: 'var(--color-canvas)', borderTop: '1px solid var(--color-hairline)', transition: 'background-color 0.2s ease' }}>
       <div className="flex items-center justify-around h-16">
         {NAV_TABS.map(({ id, label, icon }) => {
           const active = effectiveTab === id

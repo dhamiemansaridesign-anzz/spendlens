@@ -28,15 +28,15 @@ function parseInput(raw) {
   return { emoji: '🏷️', label: trimmed }
 }
 
-// Design tokens as JS constants — guarantees correct values regardless of Tailwind config resolution
+// Design tokens — static values for theme-invariant colors, CSS variables for theme-sensitive ones
 const T = {
   blue:       '#0052ff',
   blueActive: '#003ecc',
-  ink:        '#0a0b0d',
-  surfaceSoft:'#eef0f3',
-  hairline:   '#dee1e6',
-  muted:      '#7c828a',
-  mutedSoft:  '#a8acb3',
+  ink:        'var(--color-ink)',
+  surfaceSoft:'var(--color-canvas-softer)',
+  hairline:   'var(--color-hairline)',
+  muted:      'var(--color-muted)',
+  mutedSoft:  'var(--color-muted-soft)',
   green:      '#05b169',
   amber:      '#f59e0b',
   mono:       "'JetBrains Mono', monospace",
@@ -136,7 +136,7 @@ export default function QuickAdd() {
     : 'Save Expense'
 
   return (
-    <div style={{ backgroundColor: '#ffffff', border: `1px solid ${T.hairline}`, borderRadius: 24, padding: 20, display: 'flex', flexDirection: 'column', gap: 16, boxShadow: '0 1px 2px rgba(10,11,13,0.04)' }}>
+    <div style={{ backgroundColor: 'var(--color-canvas)', border: `1px solid ${T.hairline}`, borderRadius: 24, padding: 20, display: 'flex', flexDirection: 'column', gap: 16, boxShadow: 'var(--shadow-card)' }}>
       <p style={{ fontWeight: 600, fontSize: 15, color: T.ink, margin: 0 }}>Quick Add</p>
 
       {/* ── Category chips ── */}
@@ -161,7 +161,7 @@ export default function QuickAdd() {
                   boxShadow: 'none',
                   WebkitAppearance: 'none',
                   cursor: 'pointer',
-                  backgroundColor: active ? '#e8eeff' : T.surfaceSoft,
+                  backgroundColor: active ? 'var(--color-primary-tint)' : T.surfaceSoft,
                   color: active ? T.blue : T.ink,
                   fontSize: 14,
                   fontWeight: 500,
@@ -215,7 +215,7 @@ export default function QuickAdd() {
                 if (e.key === 'Escape') { setShowInput(false); setNewCatName('') }
               }}
               maxLength={30}
-              style={{ flex: 1, padding: '10px 12px', borderRadius: 12, border: `1px solid ${T.hairline}`, backgroundColor: T.surfaceSoft, fontSize: 14, color: T.ink, outline: 'none', fontFamily: 'Inter, sans-serif' }}
+              style={{ flex: 1, padding: '10px 12px', borderRadius: 12, border: `1px solid ${T.hairline}`, backgroundColor: T.surfaceSoft, fontSize: 14, color: T.ink, outline: 'none', fontFamily: 'Inter, sans-serif', transition: 'background-color 0.2s, border-color 0.2s' }}
             />
             <button
               onClick={handleAddCategory}

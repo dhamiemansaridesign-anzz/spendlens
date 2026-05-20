@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Doughnut, Line } from 'react-chartjs-2'
 import { useApp } from '../context/AppContext'
+import { useTheme } from '../context/ThemeContext'
 import { getMonthlyBudget, setMonthlyBudget, clearMonthlyBudget } from '../store/budget'
 import PullToRefresh from '../components/PullToRefresh'
 
@@ -60,6 +61,7 @@ function generateInsights({ thisExp, lastExp, totalThis, totalLast, budget, days
 
 export default function AnalysisScreen() {
   const { expenses, refreshExpenses } = useApp()
+  const { isDark } = useTheme()
   const [budget, setBudget] = useState(null)
   const [editingBudget, setEditingBudget] = useState(false)
   const [budgetInput, setBudgetInput] = useState('')
@@ -131,7 +133,7 @@ export default function AnalysisScreen() {
     plugins: { legend: { display: false } },
     scales: {
       x: { grid: { display: false }, ticks: { font: { size: 10, family: 'JetBrains Mono' }, color: '#7c828a' } },
-      y: { grid: { color: '#eef0f3' }, ticks: { font: { size: 10, family: 'JetBrains Mono' }, color: '#7c828a', callback: (v) => `₹${v >= 1000 ? `${v / 1000}k` : v}` } },
+      y: { grid: { color: isDark ? '#2a2d35' : '#eef0f3' }, ticks: { font: { size: 10, family: 'JetBrains Mono' }, color: '#7c828a', callback: (v) => `₹${v >= 1000 ? `${v / 1000}k` : v}` } },
     },
   }
 

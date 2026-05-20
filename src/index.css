@@ -17,6 +17,7 @@
     padding: 0;
     overscroll-behavior: none;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   #root {
@@ -38,6 +39,11 @@
 
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Mute pastel category icon backgrounds in dark mode */
+  .dark .cat-icon {
+    background-color: #1e2028 !important;
   }
 
   @keyframes ptr-spin {
