@@ -40,6 +40,11 @@
     display: none;
   }
 
+  @keyframes ptr-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
   /* JetBrains Mono for all monetary values */
   .font-money {
     font-family: var(--font-mono);

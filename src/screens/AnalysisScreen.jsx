@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { Doughnut, Line } from 'react-chartjs-2'
 import { useApp } from '../context/AppContext'
 import { getMonthlyBudget, setMonthlyBudget, clearMonthlyBudget } from '../store/budget'
+import PullToRefresh from '../components/PullToRefresh'
 
 const BUILTIN_LABELS = {
   food: 'Food', transport: 'Transport', shopping: 'Shopping',
@@ -58,7 +59,7 @@ function generateInsights({ thisExp, lastExp, totalThis, totalLast, budget, days
 }
 
 export default function AnalysisScreen() {
-  const { expenses } = useApp()
+  const { expenses, refreshExpenses } = useApp()
   const [budget, setBudget] = useState(null)
   const [editingBudget, setEditingBudget] = useState(false)
   const [budgetInput, setBudgetInput] = useState('')
@@ -162,6 +163,7 @@ export default function AnalysisScreen() {
   )
 
   return (
+    <PullToRefresh onRefresh={refreshExpenses}>
     <div className="flex flex-col gap-6 px-4 pt-6 pb-28">
       <div>
         <h2 className="text-xl font-semibold text-ink">Analysis</h2>
@@ -346,5 +348,6 @@ export default function AnalysisScreen() {
         </Section>
       )}
     </div>
+    </PullToRefresh>
   )
 }

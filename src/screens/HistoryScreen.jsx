@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useApp } from '../context/AppContext'
+import PullToRefresh from '../components/PullToRefresh'
 
 const CATEGORY_META = {
   food:          { emoji: '🍛', color: '#fff3cd' },
@@ -62,6 +63,7 @@ export default function HistoryScreen({ onBack }) {
   const monthKeys = Object.keys(monthGroups).sort((a, b) => b.localeCompare(a))
 
   return (
+    <PullToRefresh onRefresh={null}>
     <div className="flex flex-col gap-4 px-4 pt-4 pb-28">
       {/* Header */}
       <div className="flex items-center gap-3">
@@ -171,5 +173,6 @@ export default function HistoryScreen({ onBack }) {
         })
       )}
     </div>
+    </PullToRefresh>
   )
 }

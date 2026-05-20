@@ -1,6 +1,7 @@
 import React from 'react'
 import { useApp } from '../context/AppContext'
 import QuickAdd from '../components/QuickAdd'
+import PullToRefresh from '../components/PullToRefresh'
 
 const CATEGORY_META = {
   food:          { emoji: '🍛', color: '#fff3cd' },
@@ -56,13 +57,14 @@ function formatTime(iso) {
 }
 
 export default function HomeScreen({ onViewHistory }) {
-  const { user, expenses, removeExpense } = useApp()
+  const { user, expenses, removeExpense, refreshExpenses } = useApp()
   const firstName = user?.name?.split(' ')[0] || 'there'
   const recent = expenses.slice(0, 10)
   const groups = groupByDate(recent)
   const dateKeys = Object.keys(groups)
 
   return (
+    <PullToRefresh onRefresh={refreshExpenses}>
     <div className="flex flex-col gap-4 px-4 pt-6 pb-28">
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -168,5 +170,6 @@ export default function HomeScreen({ onViewHistory }) {
         </div>
       )}
     </div>
+    </PullToRefresh>
   )
 }

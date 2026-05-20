@@ -100,6 +100,13 @@ export function AppProvider({ children }) {
     }
   }
 
+  async function refreshExpenses() {
+    if (user) {
+      const exps = await getExpenses()
+      setExpenses(exps)
+    }
+  }
+
   async function removeExpense(id) {
     await deleteExpense(id)
     setExpenses((prev) => prev.filter((e) => e.id !== id))
@@ -110,7 +117,7 @@ export function AppProvider({ children }) {
   return (
     <AppContext.Provider value={{
       user, authLoading, login, logout,
-      expenses, saveExpense, removeExpense,
+      expenses, saveExpense, removeExpense, refreshExpenses,
       sheetsConnected, connectSheets, sheetId,
     }}>
       {children}

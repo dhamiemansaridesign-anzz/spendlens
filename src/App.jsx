@@ -24,7 +24,7 @@ function AppShell() {
 
   return (
     <div className="flex flex-col min-h-dvh bg-canvas">
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-hidden relative">
         {activeTab === 'home' && <HomeScreen onViewHistory={() => setActiveTab('history')} />}
         {activeTab === 'history' && <HistoryScreen onBack={() => setActiveTab('home')} />}
         {activeTab === 'analysis' && <AnalysisScreen />}

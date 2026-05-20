@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useApp } from '../context/AppContext'
+import PullToRefresh from '../components/PullToRefresh'
 
 
 function SettingsRow({ label, value, onClick, destructive }) {
@@ -51,6 +52,7 @@ export default function SettingsScreen() {
   }
 
   return (
+    <PullToRefresh onRefresh={null}>
     <div className="flex flex-col gap-6 px-4 pt-6 pb-28">
       <h2 className="text-xl font-semibold text-ink">Settings</h2>
 
@@ -135,5 +137,6 @@ export default function SettingsScreen() {
 
       <SettingsRow label="Sign Out" onClick={logout} destructive />
     </div>
+    </PullToRefresh>
   )
 }

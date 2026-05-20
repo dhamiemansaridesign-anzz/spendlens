@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { fetchAllMarketData } from '../services/markets'
+import PullToRefresh from '../components/PullToRefresh'
 
 const GNEWS_KEY = import.meta.env.VITE_GNEWS_API_KEY || ''
 
@@ -100,6 +101,7 @@ export default function MarketsScreen() {
   useEffect(() => { load() }, [load])
 
   return (
+    <PullToRefresh onRefresh={() => load(true)}>
     <div className="flex flex-col gap-6 px-4 pt-6 pb-28">
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -180,5 +182,6 @@ export default function MarketsScreen() {
         </>
       )}
     </div>
+    </PullToRefresh>
   )
 }
