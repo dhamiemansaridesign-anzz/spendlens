@@ -8,11 +8,11 @@ import './lib/charts'
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || ''
 
-// Register service worker (enables PWA install prompt on Android/Chrome)
+// Register service worker — needed for Chrome's PWA install prompt
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {})
-  })
+  navigator.serviceWorker.register('/sw.js')
+    .then((reg) => console.log('[SW] registered, scope:', reg.scope))
+    .catch((err) => console.error('[SW] registration failed:', err))
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
