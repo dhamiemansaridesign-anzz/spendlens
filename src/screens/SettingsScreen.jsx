@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useApp } from '../context/AppContext'
 
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${import.meta.env.VITE_SHEET_ID}/edit`
 
 function SettingsRow({ label, value, onClick, destructive }) {
   return (
@@ -24,7 +23,8 @@ function SettingsRow({ label, value, onClick, destructive }) {
 }
 
 export default function SettingsScreen() {
-  const { user, logout, sheetsConnected, connectSheets } = useApp()
+  const { user, logout, sheetsConnected, connectSheets, sheetId } = useApp()
+  const sheetUrl = sheetId ? `https://docs.google.com/spreadsheets/d/${sheetId}/edit` : null
   const [reconnecting, setReconnecting] = useState(false)
 
   const connectLogin = useGoogleLogin({
@@ -95,20 +95,27 @@ export default function SettingsScreen() {
           )}
         </div>
 
-        <a
-          href={SHEET_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full flex items-center justify-between px-4 py-4 rounded-card bg-canvas border border-hairline text-ink active:bg-canvas-soft"
-          style={{ boxShadow: 'var(--shadow-card)' }}
-        >
-          <span className="text-sm font-medium">Open Spreadsheet</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
-        </a>
+        {sheetUrl ? (
+          <a
+            href={sheetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-between px-4 py-4 rounded-card bg-canvas border border-hairline text-ink active:bg-canvas-soft"
+            style={{ boxShadow: 'var(--shadow-card)' }}
+          >
+            <span className="text-sm font-medium">Open Spreadsheet</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        ) : (
+          <div className="w-full flex items-center justify-between px-4 py-4 rounded-card bg-canvas border border-hairline opacity-40" style={{ boxShadow: 'var(--shadow-card)' }}>
+            <span className="text-sm font-medium text-muted">Open Spreadsheet</span>
+            <span className="text-xs text-muted">Not created yet</span>
+          </div>
+        )}
       </div>
 
       {/* Preferences */}

@@ -1,15 +1,37 @@
-const SHEET_ID = import.meta.env.VITE_SHEET_ID
 const HEADERS = ['Date', 'Amount', 'Category', 'Note', 'Payment Mode', 'Timestamp']
+const TAB = 'Expenses'
 
-export async function ensureSheetHeaders(accessToken) {
+// ── Create a new spreadsheet in the user's Drive ───────────────────────────
+export async function createUserSheet(accessToken, title = 'SpendLens - My Expenses') {
+  const res = await fetch('https://sheets.googleapis.com/v4/spreadsheets', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      properties: { title },
+      sheets: [{ properties: { title: TAB, index: 0 } }],
+    }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error?.message || `Sheet creation failed: ${res.status}`)
+  }
+  const data = await res.json()
+  return data.spreadsheetId
+}
+
+// ── Write column headers if the sheet is empty ─────────────────────────────
+export async function ensureSheetHeaders(accessToken, sheetId) {
   const res = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!A1:F1`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${TAB}!A1:F1`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
   )
   const data = await res.json()
   if (!data.values?.length) {
     await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!A1:F1?valueInputOption=RAW`,
+      `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${TAB}!A1:F1?valueInputOption=RAW`,
       {
         method: 'PUT',
         headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
@@ -19,7 +41,8 @@ export async function ensureSheetHeaders(accessToken) {
   }
 }
 
-export async function appendExpense(accessToken, expense) {
+// ── Append one expense row ─────────────────────────────────────────────────
+export async function appendExpense(accessToken, sheetId, expense) {
   const date = new Date(expense.createdAt)
   const row = [
     date.toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }),
@@ -31,7 +54,7 @@ export async function appendExpense(accessToken, expense) {
   ]
 
   const res = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${TAB}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
