@@ -237,9 +237,9 @@ export default function QuickAdd() {
           placeholder="0"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          style={{ width: '100%', paddingLeft: 36, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderRadius: 12, border: `1px solid transparent`, backgroundColor: T.surfaceSoft, fontSize: 24, fontWeight: 600, color: T.ink, fontFamily: T.mono, outline: 'none', fontVariantNumeric: 'tabular-nums' }}
+          style={{ width: '100%', paddingLeft: 36, paddingRight: 16, paddingTop: 12, paddingBottom: 12, borderRadius: 12, border: `1px solid ${T.hairline}`, backgroundColor: T.surfaceSoft, fontSize: 24, fontWeight: 600, color: T.ink, fontFamily: T.mono, outline: 'none', fontVariantNumeric: 'tabular-nums' }}
           onFocus={(e) => { e.target.style.borderColor = T.blue }}
-          onBlur={(e) => { e.target.style.borderColor = 'transparent' }}
+          onBlur={(e) => { e.target.style.borderColor = T.hairline }}
         />
       </div>
 
@@ -250,9 +250,9 @@ export default function QuickAdd() {
         value={note}
         onChange={(e) => setNote(e.target.value)}
         maxLength={80}
-        style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: `1px solid transparent`, backgroundColor: T.surfaceSoft, fontSize: 14, color: T.ink, outline: 'none', fontFamily: 'Inter, sans-serif', boxSizing: 'border-box' }}
+        style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: `1px solid ${T.hairline}`, backgroundColor: T.surfaceSoft, fontSize: 14, color: T.ink, outline: 'none', fontFamily: 'Inter, sans-serif', boxSizing: 'border-box' }}
         onFocus={(e) => { e.target.style.borderColor = T.blue }}
-        onBlur={(e) => { e.target.style.borderColor = 'transparent' }}
+        onBlur={(e) => { e.target.style.borderColor = T.hairline }}
       />
 
       {/* ── Payment method ── */}
